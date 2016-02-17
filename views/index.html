@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">二手商品网</a>
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">链接</a></li>
+				<li><a href="#">链接</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						链接 
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">链接</a></li>
+						<li><a href="#">链接</a></li>
+						<li><a href="#">链接</a></li>
+						<li class="divider"></li>
+						<li><a href="#">链接</a></li>
+						<li class="divider"></li>
+						<li><a href="#">链接</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+<!-- 	<div id="myCarousel" class="carousel slide" style="width:40%;">
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+   </ol>   
+   <div class="carousel-inner">
+      <div class="item active">
+         <img src="./img/big1.jpg" alt="First slide">
+      </div>
+      <div class="item">
+         <img src="./img/big2.jpg" alt="Second slide">
+      </div>
+      <div class="item">
+         <img src="./img/big3.jpg" alt="Third slide">
+      </div>
+   </div>
+   <a class="carousel-control left" href="#myCarousel" 
+      data-slide="prev">&lsaquo;</a>
+   <a class="carousel-control right" href="#myCarousel" 
+      data-slide="next">&rsaquo;</a>
+  </div>  -->
+  <div class="container">
+  	<form role="form">
+  		<div class="form-group">
+  			<label for='sender'>发布人</label>
+  			<input type="text" class="form-control" id="sender" placeholder="请输入发布人" ng-model='infolist.sender'>
+  		</div>
+  		<div class="form-group">
+  			<label for='title'>主题</label>
+  			<input type="text" class="form-control" id="title" placeholder="请输入主题" ng-model='infolist.title'>
+  		</div>
+  		<div class="form-group">
+  			<label for='summary'>概要</label>
+  			<input type="text" class="form-control" id="summary" placeholder="请输入概要" ng-model='infolist.summary'>
+  		</div>
+  		<div class="alert alert-success alert-dismissable" ng-show="tipok">
+  			<button type="button" class="close" data-dismiss="alert" 
+  			aria-hidden="true">
+  			&times;
+  		</button>
+  		成功！很好地完成了提交。
+  		</div>
+  		<div class="alert alert-danger alert-dismissable" ng-show="tiperror">
+  			<button type="button" class="close" data-dismiss="alert" 
+  			aria-hidden="true">
+  			&times;
+  		</button>
+  		提交失败。
+  		</div>
+  	<button type="submit" class="btn btn-default" ng-click="submit()">提交</button>
+  	<button type="submit" class="btn btn-default" ng-click="reset()">重置</button>
+  </form>
+    <form role="form">
+      <div class="form-group">
+        <label for='name'>用户名</label>
+        <input type="text" class="form-control" id="name" placeholder="请输入用户名" ng-model='user.name'>
+      </div>
+      <div class="form-group">
+        <label for='psd'>密码</label>
+        <input type="password" class="form-control" id="psd" placeholder="请输入密码" ng-model='user.psd'>
+      </div>
+      <div class="alert alert-success alert-dismissable" ng-show="tipokregister">
+        <button type="button" class="close" data-dismiss="alert" 
+        aria-hidden="true">
+        &times;
+      </button>
+      成功！很好地完成了提交。
+      </div>
+      <div class="alert alert-danger alert-dismissable" ng-show="tiperrorregister">
+        <button type="button" class="close" data-dismiss="alert" 
+        aria-hidden="true">
+        &times;
+      </button>
+      提交失败。
+      </div>
+    <button type="submit" class="btn btn-default" ng-click="register()">提交</button>
+  </form>
+  <div class="row" ng-repeat="list in data">
+  	<h2>{{list.title}}</h2>
+  	<span>{{list.sender}}</span>
+  	<p class="lead">{{list.summary}}</p>
+  </div>
+</div>
+</html>

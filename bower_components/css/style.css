@@ -1,0 +1,35 @@
+body{
+	background: #fff;
+}
+.container{
+	width: 1020px;
+	margin:0 auto;
+}
+.carousel-control{
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+	transition: all 0.5s;
+    margin-top: -15px;
+}
+.carousel-control.left{
+	opacity: 0;
+	left:-5px;
+	transition: all 0.5s;
+}
+.carousel-control.right{
+	opacity: 0;
+	right:-5px;
+	transition: all 0.5s;
+}
+#myCarousel:hover .carousel-control.left{
+	left:10px;
+	opacity: 1;
+}
+#myCarousel:hover .carousel-control.right{
+	right:10px;
+	opacity: 1;
+}

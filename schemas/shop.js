@@ -4,6 +4,9 @@ var ShopSchema = new mongoose.Schema({
 	sender:String,
 	title:String,
 	date:String,
+	classify:String,
+	phone:Number,
+	img:String,
 	summary:String,
 	meta:{
 		createAt:{
@@ -30,6 +33,12 @@ ShopSchema.pre('save',function(next){
 ShopSchema.statics = {
 	fetch:function(cb){
 		return this.find({}).sort('meta.updateAt').exec(cb)
+	},
+	findByClassify:function(classify,cb){
+		return this.find({classify:classify}).exec(cb)
+	},
+	findByName:function(name,cb){
+		return this.find({name:{$regex:/name.*/i}}).exec(cb)
 	},
 	findById:function(id,cb){
 		return this.findOne({_id:id}).exec(cb)

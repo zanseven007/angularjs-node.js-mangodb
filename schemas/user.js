@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var UserSchema = new mongoose.Schema({
 	name:String,
 	psd:String,
+	academy:String,
 	meta:{
 		createAt:{
 			type:Date,

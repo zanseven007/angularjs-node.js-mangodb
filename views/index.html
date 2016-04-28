@@ -2,124 +2,260 @@
 <html lang="en" ng-app="myApp" ng-controller="myCtrl">
 <head>
 	<meta charset="UTF-8">
-	<title>index</title>
+	<title>赞鱼鱼的二手商品网站</title>
 	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="angular/angular.min.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="angular/angular.min.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-inverse" role="navigation">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">二手商品网</a>
-		</div>
-		<div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">链接</a></li>
-				<li><a href="#">链接</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						链接 
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">链接</a></li>
-						<li><a href="#">链接</a></li>
-						<li><a href="#">链接</a></li>
-						<li class="divider"></li>
-						<li><a href="#">链接</a></li>
-						<li class="divider"></li>
-						<li><a href="#">链接</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
-<!-- 	<div id="myCarousel" class="carousel slide" style="width:40%;">
-   <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-   </ol>   
-   <div class="carousel-inner">
-      <div class="item active">
-         <img src="./img/big1.jpg" alt="First slide">
+	<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">咸鱼</a>
       </div>
-      <div class="item">
-         <img src="./img/big2.jpg" alt="Second slide">
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">分类 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" ng-click="getData()">所有分类</a></li>
+              <li><a href="#" ng-click="search('闲置数码')">闲置数码</a></li>
+              <li><a href="#" ng-click="search('闲置书籍')">闲置书籍</a></li>
+              <li><a href="#" ng-click="search('闲置服饰')">闲置服饰</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" ng-click="search('其他')">其他</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="输入想要的二手用品" ng-model="searchStr">
+          </div>
+          <button type="submit" class="btn btn-default" ng-click="searchClick()">搜索</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" data-toggle="modal" data-target="#register" ng-if="!isLogin">注册</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#login" ng-if="!isLogin">登录</a></li>
+          <li class="dropdown" ng-if='isLogin'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{isLoginName}} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-toggle="modal" data-target="#publish">发布闲置</a></li>
+              <li><a href="/list">管理我的商品</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#reset">修改个人信息</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" ng-click="exit()">退出</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+<!--   <ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+  </ol>
+-->  
+<div class="container">
+
+ <div class="jumbotron">
+  <h1>咸鱼</h1>
+  <p>咸鱼是由赞鱼鱼在一天夜里,面对着闪烁的荧光屏,发现自己是那么的迷惘那么的无助,就像鱼儿在茫茫大海里不知道该往哪儿游。90后的显著特征就是有有一点点庸懒，精力旺盛，每日感觉自己无所事事很闲一样，故自嘲为咸鱼。
+  </p>
+  <p><a class="btn btn-primary btn-lg" href="#" role="button">点赞</a></p>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-md-4 shop-item" ng-repeat = 'list in data'>
+    <div class="thumbnail">
+      <img ng-src="{{list.img}}" alt="...">
+      <div class="caption publish__item">
+        <p><span>主题：</span>{{list.title}}</p>
+        <p><span>摘要：</span>{{list.summary}}</p>
+        <p><span>分类：</span>{{list.classify}}</p>
+        <p><span>发布日期：</span>{{list.meta.createAt}}</p>
+        <p><span>发布人：</span>{{list.sender}}</p>
+        <p><span>联系电话：</span>{{list.phone}}</p>
+        <p><a href="#" class="btn btn-primary" role="button">查看详细</a> </p>
       </div>
-      <div class="item">
-         <img src="./img/big3.jpg" alt="Third slide">
-      </div>
-   </div>
-   <a class="carousel-control left" href="#myCarousel" 
-      data-slide="prev">&lsaquo;</a>
-   <a class="carousel-control right" href="#myCarousel" 
-      data-slide="next">&rsaquo;</a>
-  </div>  -->
-  <div class="container">
-  	<form role="form">
-  		<div class="form-group">
-  			<label for='sender'>发布人</label>
-  			<input type="text" class="form-control" id="sender" placeholder="请输入发布人" ng-model='infolist.sender'>
-  		</div>
-  		<div class="form-group">
-  			<label for='title'>主题</label>
-  			<input type="text" class="form-control" id="title" placeholder="请输入主题" ng-model='infolist.title'>
-  		</div>
-  		<div class="form-group">
-  			<label for='summary'>概要</label>
-  			<input type="text" class="form-control" id="summary" placeholder="请输入概要" ng-model='infolist.summary'>
-  		</div>
-  		<div class="alert alert-success alert-dismissable" ng-show="tipok">
-  			<button type="button" class="close" data-dismiss="alert" 
-  			aria-hidden="true">
-  			&times;
-  		</button>
-  		成功！很好地完成了提交。
-  		</div>
-  		<div class="alert alert-danger alert-dismissable" ng-show="tiperror">
-  			<button type="button" class="close" data-dismiss="alert" 
-  			aria-hidden="true">
-  			&times;
-  		</button>
-  		提交失败。
-  		</div>
-  	<button type="submit" class="btn btn-default" ng-click="submit()">提交</button>
-  	<button type="submit" class="btn btn-default" ng-click="reset()">重置</button>
-  </form>
-    <form role="form">
-      <div class="form-group">
-        <label for='name'>用户名</label>
-        <input type="text" class="form-control" id="name" placeholder="请输入用户名" ng-model='user.name'>
-      </div>
-      <div class="form-group">
-        <label for='psd'>密码</label>
-        <input type="password" class="form-control" id="psd" placeholder="请输入密码" ng-model='user.psd'>
-      </div>
-      <div class="alert alert-success alert-dismissable" ng-show="tipokregister">
-        <button type="button" class="close" data-dismiss="alert" 
-        aria-hidden="true">
-        &times;
-      </button>
-      成功！很好地完成了提交。
-      </div>
-      <div class="alert alert-danger alert-dismissable" ng-show="tiperrorregister">
-        <button type="button" class="close" data-dismiss="alert" 
-        aria-hidden="true">
-        &times;
-      </button>
-      提交失败。
-      </div>
-    <button type="submit" class="btn btn-default" ng-click="register()">提交</button>
-  </form>
-  <div class="row" ng-repeat="list in data">
-  	<h2>{{list.title}}</h2>
-  	<span>{{list.sender}}</span>
-  	<p class="lead">{{list.summary}}</p>
+    </div>
   </div>
+</div>
+<!-- Register Modal -->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">注册咸鱼</h4>
+      </div>
+      <div class="modal-body">
+       <form>         
+         <div class="form-group" ng-class="{true: 'form-group has-success has-feedback', false: 'form-group'}[register.nameblur]">
+           <label for="name">用户名 *（将作为登录时候的账号)</label>
+           <input type="text" class="form-control" id="name" placeholder="用户名" ng-model="user.name" ng-blur="nameBlur()">
+           <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="register.nameblur"></span>
+           <p class="text-danger" ng-if='register.nameblurbox'>该用户名已经存在</p>
+           <p class="text-danger" ng-if='register.nameblurboxnull'>用户名不能为空</p>
+         </div>
+         <div class="form-group" ng-class="{true: 'form-group has-success has-feedback', false: 'form-group'}[register.psdblur]">
+           <label for="password">密码 *</label>
+           <input type="password" class="form-control" id="password" placeholder="密码" ng-model="user.psd">
+           <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="register.psdblur"></span>
+         </div>
+         <div class="form-group" ng-class="{true: 'form-group has-success has-feedback', false: 'form-group'}[register.psdblur]">
+           <label for="comfirmpassword">确认密码 *</label>
+           <input type="password" class="form-control" id="comfirmpassword" placeholder="确认密码" ng-model="user.psdConfirm" ng-blur="psdBlur()">
+           <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="register.psdblur"></span>
+           <p class="text-danger" ng-if='register.psdblurbox'>两次密码输入不一致</p>
+           <p class="text-danger" ng-if='register.psdblurboxnull'>密码不能为空</p>
+
+         </div>
+         <div class="form-group">
+           <label for="academy">选择学院*</label>
+           <select class="form-control" ng-model="selectedR" ng-options="m.academyName for m in modelR">
+            <option value="">-- 请选择 --</option>
+          </select>
+          <p class="text-danger" ng-if='register.academyblur'>请选择学院</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-primary" ng-click='register()'>注册</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- 登录 Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">登录咸鱼</h4>
+      </div>
+      <div class="modal-body">
+       <form>         
+         <div class="form-group">
+           <label for="loginname">用户名 *（注册时填写的账号)</label>
+           <input type="text" class="form-control" id="loginname" placeholder="用户名" ng-model="mylogin.loginName">
+         </div>
+         <div class="form-group">
+           <label for="loginpassword">密码 *</label>
+           <input type="password" class="form-control" id="loginpassword" placeholder="密码" ng-model="mylogin.psd">
+         </div>
+       </form>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-primary" ng-click='mylogin()'>登录</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- 修改个人密码 Modal -->
+<div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">修改密码</h4>
+      </div>
+      <div class="modal-body">
+       <form>         
+         <div class="form-group">
+           <label for="loginname">用户名</label>
+           <span style="font-size: 18px;margin-left: 10px;font-weight: bold;">{{isLoginName}}</span>
+         </div>
+         <div class="form-group">
+           <label for="newPsw">新密码 *</label>
+           <input type="text" class="form-control" id="newPsw" placeholder="密码" ng-model="newPsw">
+         </div>
+       </form>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-primary" ng-click='myreset()'>确认修改</button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- 发布 Modal -->
+<div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">发布闲置</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for='sender'>发布人:</label>
+            <span style="font-size: 18px;margin-left: 10px;font-weight: bold;">{{isLoginName}}</span>
+          </div>
+          <div class="form-group">
+            <label for='title'>主题</label>
+            <input type="text" class="form-control" id="title" placeholder="请输入主题" ng-model='infolist.title'>
+          </div>
+
+          <div class="form-group">
+            <label for='summary'>概要</label>
+            <input type="text" class="form-control" id="summary" placeholder="请输入概要" ng-model='infolist.summary' >
+          </div>
+          <div class="form-group">
+            <label for='phone'>联系电话</label>
+            <input type="number" class="form-control" id="phone" placeholder="请输入联系电话" ng-model='infolist.phone' >
+          </div>
+           <div class="form-group">
+             <label for="classify">选择分类*</label>
+             <select class="form-control" ng-model="selectedC" ng-options="m.classify for m in modelC">
+              <option value="">-- 请选择 --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">上传图片</label>
+            <input type="file" id="exampleInputFile" fileread='infolist.img'>
+            <p class="help-block">请上传jpg，jpeg，png，gif格式文件</p>
+          </div>
+          <div class="alert alert-success alert-dismissable" ng-show="tipok">
+            <button type="button" class="close" data-dismiss="alert" 
+            aria-hidden="true">
+            &times;
+          </button>
+          发布成功。
+          </div>
+          <div class="alert alert-danger alert-dismissable" ng-show="tiperror">
+            <button type="button" class="close" data-dismiss="alert" 
+            aria-hidden="true">
+            &times;
+          </button>
+          发布失败。
+          </div>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+      <button type="button" class="btn btn-primary" ng-click='submit()'>发布</button>
+    </div>
+  </div>
+</div>
 </div>
 </html>

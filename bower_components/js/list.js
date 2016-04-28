@@ -1,5 +1,5 @@
-var app=angular.module('myApp',[])
-app.controller('myCtrl', ['$scope','$http', function($scope,$http){
+var app=angular.module('myAppList',[])
+app.controller('myCtrlList', ['$scope','$http', function($scope,$http){
 	$scope.firstname="zan";
 	$scope.tipok=false;
 	$scope.tiperror=false;
@@ -11,6 +11,15 @@ app.controller('myCtrl', ['$scope','$http', function($scope,$http){
 		title:'',
 		img:'',
 		phone:'',
+		summary:''
+	}
+	$scope.edit = {
+		id:'',
+		sender:'',
+		title:'',
+		img:'',
+		phone:'',
+		selectedC:'',
 		summary:''
 	}
 	$scope.register = {
@@ -69,6 +78,21 @@ app.controller('myCtrl', ['$scope','$http', function($scope,$http){
 			console.error('something wrong');
 		});
 	}
+	$scope.getList = function(){
+		$http({
+			url:'/getlist',
+			method:'POST',
+			data:{
+				'sender':window.localStorage.isLoginName
+			}
+		}).success(function(data){
+			$scope.data = data;
+		}).error(function(data){
+			console.error('something wrong');
+		});
+	}
+
+
 	$scope.submit = function(){
 		$http({
 			url:'/addshop',
@@ -83,7 +107,7 @@ app.controller('myCtrl', ['$scope','$http', function($scope,$http){
 			}
 		}).success(function(data){
 			$scope.tipok=true;
-			$scope.getData();
+			$scope.getList();
 		}).error(function(data){
 			console.error('something wrong');
 			$scope.tiperror=true;
@@ -139,6 +163,7 @@ app.controller('myCtrl', ['$scope','$http', function($scope,$http){
 				$scope.isLoginName = data.name;
 				window.localStorage.isLoginName = data.name;
 				window.localStorage.isLoginPsw = $scope.mylogin.psd;
+				$scope.getList();
 			}else if(data.status == 2){
 				alert('用户名不存在！');
 			}else if(data.status ==3){
@@ -246,34 +271,49 @@ app.controller('myCtrl', ['$scope','$http', function($scope,$http){
 
 		}
 	}
-	$scope.search = function(str){
+	$scope.showEditModal = function(list){
+		$scope.edit.id = list._id;
+		$scope.edit.sender = list.sender;
+		$scope.edit.title = list.title;
+		$scope.edit.phone = list.phone;
+		$scope.edit.img = list.img;
+		$scope.edit.summary = list.summary;
+		$scope.edit.selectedC = list.classify;
+		console.log($scope.edit);
+	}
+	$scope.submitEdit = function(){
 		$http({
-			url:'/classify',
+			url:'/edit',
 			method:'POST',
 			data:{
-				'classify':str,
+				'id':$scope.edit.id,
+				'sender':$scope.edit.sender,
+				'title':$scope.edit.title,
+				'classify':$scope.edit.selectedC.classify || $scope.edit.selectedC,
+				'phone':$scope.edit.phone,
+				'img':$scope.edit.img,
+				'summary':$scope.edit.summary
 			}
 		}).success(function(data){
-			$scope.data=data;
+			$scope.getList();
 		}).error(function(data){
 			console.error('something wrong');
 		});
 	}
-	$scope.searchClick = function(){
+	$scope.deleteShop = function(list){
 		$http({
-			url:'/title',
+			url:'/deleteshop',
 			method:'POST',
 			data:{
-				'title':$scope.searchStr,
+				'id':list._id,
 			}
 		}).success(function(data){
-			$scope.data=data;
-
+			$scope.getList();
 		}).error(function(data){
 			console.error('something wrong');
 		});
 	}
-	$scope.getData();
+	$scope.getList();
 
 }])
 app.directive("fileread", [function () {
